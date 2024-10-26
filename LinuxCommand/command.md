@@ -13,14 +13,11 @@ nano pets.txt
 > вписать данные
 nano burden.txt
 > вписать данные
-
 cat pets.txt burden.txt > animals.txt
 cat animals.txt
-
 mv animals.txt all_animals.txt
-
 ```
-![Скриншот_1](/Screenshot/01.png)
+![Скриншот_1](/Itog_2etap_Knyazev/LinuxCommand/Screenshot/01.jpeg)
 
 2. Создать директорию, переместить файл туда.
 ```shell
@@ -29,14 +26,14 @@ mv all_animals.txt example
 cd example
 ls
 ```
-![картинка](/Linux/img/03.png)
+![Скриншот_2](/Itog_2etap_Knyazev/LinuxCommand/Screenshot/02.jpeg)
 
 3. Подключить дополнительный репозиторий MySQL. Установить любой пакет из этого репозитория.
 ```shell
 apt install mysql-server
 ```
-![картинка](/Linux/img/04.png)
-![картинка](/Linux/img/05.png)
+![Скриншот_3](/Itog_2etap_Knyazev/LinuxCommand/Screenshot/03.jpeg)
+![Скриншот_4](/Itog_2etap_Knyazev/LinuxCommand/Screenshot/04.jpeg)
 
 4. Установить и удалить deb-пакет с помощью dpkg.
 ```shell
@@ -45,11 +42,11 @@ ls
 dpkg -i libfuse
 apt remove libfuse2
 ```
-![картинка](/Linux/img/06.png)
-![картинка](/Linux/img/07.png)
+![Скриншот_5](/Itog_2etap_Knyazev/LinuxCommand/Screenshot/05.jpeg)
+![Скриншот_6](/Itog_2etap_Knyazev/LinuxCommand/Screenshot/06.jpeg)
+
 5. Выложить историю команд в терминале ubuntu
 ```shell
 history
 ```
-![картинка](/Linux/img/08.png)
-![картинка](/Linux/img/09.png)
+![Скриншот_7](/Itog_2etap_Knyazev/LinuxCommand/Screenshot/07.jpeg)
