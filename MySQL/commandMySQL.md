@@ -117,3 +117,74 @@ SELECT * FROM `horse`
 UNION
 SELECT * FROM `donkey`;
 ```
+
+11.   Создать новую таблицу “молодые животные” в которую попадут все
+животные старше 1 года, но младше 3 лет и в отдельном столбце с точностью
+до месяца подсчитать возраст животных в новой таблице
+
+```sql
+CREATE TEMPORARY TABLE `young_animal` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`type_an` ENUM('dog', 'cat', 'hamster', 'horse', 'donkey'),
+	`name` TEXT NULL,
+	`age` DECIMAL(5,2),
+	PRIMARY KEY (`id`)
+);
+
+INSERT INTO `young_animal` (`type_an`, `name`, `age`)
+SELECT type_an, name, TIMESTAMPDIFF(MONTH,`date`,CURDATE()) AS age FROM 
+    (SELECT 'dog' as type_an, `name`, `date` FROM `dog`
+     UNION ALL SELECT 'cat', `name`, `date` FROM `cat`
+     UNION ALL SELECT 'hamster', `name`, `date` FROM `hamster`
+     UNION ALL SELECT 'horse', `name`, `date` FROM `horse`     
+     UNION ALL SELECT 'donkey', `name`, `date` FROM `donkey`
+    ) AS animal
+WHERE `date` BETWEEN DATE_SUB(NOW(), INTERVAL 3 YEAR) AND DATE_SUB(NOW(), INTERVAL 1 YEAR);
+
+SELECT * FROM young_animal;
+```
+
+12.  Объединить все таблицы в одну, при этом сохраняя поля, указывающие на
+прошлую принадлежность к старым таблицам.
+
+```sql
+SELECT 
+    a.id AS animal_id,
+    a.type AS animal_type,
+    p.id AS pet_id,
+    p.name AS pet_name,
+    b.id AS burden_id,
+    b.name AS burden_name,
+    d.id AS dog_id,
+    d.name AS dog_name,
+    d.date AS dog_date,
+    d.commands AS dog_commands,
+    c.id AS cat_id,
+    c.name AS cat_name,
+    c.date AS cat_date,
+    c.commands AS cat_commands,
+    h.id AS hamster_id,
+    h.name AS hamster_name,
+    h.date AS hamster_date,
+    h.commands AS hamster_commands,
+    ho.id AS horse_id,
+    ho.name AS horse_name,
+    ho.date AS horse_date,
+    ho.commands AS horse_commands,
+    ca.id AS camel_id,
+    ca.name AS camel_name,
+    ca.date AS camel_date,
+    ca.commands AS camel_commands,
+    do.id AS donkey_id,
+    do.name AS donkey_name,
+    do.date AS donkey_date,
+    do.commands AS donkey_commands
+FROM animal a
+LEFT JOIN pet p ON a.id = p.id
+LEFT JOIN burden b ON a.id = b.id
+LEFT JOIN dog d ON p.id = d.id
+LEFT JOIN cat c ON p.id = c.id
+LEFT JOIN hamster h ON p.id = h.id
+LEFT JOIN horse ho ON p.id = ho.id
+LEFT JOIN camel ca ON p.id = ca.id
+LEFT JOIN donkey do ON p.id = do.id;
