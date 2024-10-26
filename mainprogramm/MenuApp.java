@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 public class MenuApp {
     private List<Animal> animals = new ArrayList<>();
+    private final Counter counter = new Counter();
 
     public void start() {
         try (Scanner scanner = new Scanner(System.in)) {
@@ -24,6 +25,7 @@ public class MenuApp {
     }
 
     private void addNewAnimal() {
+        try (counter) { // try-with-resources
             try (Scanner scanner = new Scanner(System.in)) {
                 System.out.print("Введите имя животного: ");
                 String name = scanner.nextLine();
@@ -44,7 +46,11 @@ public class MenuApp {
                 }
                 animals.add(animal);
             }
+            counter.add();
             System.out.println("Животное добавлено.");
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
     }
 
     private void showCommands() {
